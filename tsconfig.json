@@ -8,6 +8,7 @@
     "plugins": [{ "name": "ts-plugin-scss-modules" }],
 
     /* Bundler mode */
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

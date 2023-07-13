@@ -1,0 +1,19 @@
+.button {
+  display: inline-flex;
+  padding: 10px 15px;
+  align-items: center;
+  gap: 10px;
+  background-color: #23a6f0;
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px; /* 157.143% */
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: background-color ease-in-out 0.2s;
+  &:hover {
+    background-color: #0077c8;
+  }
+}
