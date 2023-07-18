@@ -3,3 +3,13 @@
 * {
   font-family: "Montserrat", sans-serif;
 }
+
+.header {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+h1,
+p {
+  margin: 0;
+}

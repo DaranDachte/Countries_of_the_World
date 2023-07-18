@@ -2,8 +2,11 @@ import { useState, useEffect, useMemo } from "react";
 import { fetcher } from "./Helpers/fetcher";
 import { Country } from "./Types";
 
-import "./App.css";
+import style from "./App.module.scss";
 import Card from "./Components/Card/Card";
+import Toggler from "./Components/Toggler/Toggler";
+import SearchForm from "./Components/SearchForm/SearchForm";
+import Select from "./Components/Select/Select";
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -48,6 +51,15 @@ function App() {
 
   return (
     <>
+      <div className={style.header}>
+        <div className={style.name}>
+          <h1>Countries of the world</h1>
+          <p>Interactive Reference Guide</p>
+        </div>
+        <Toggler />
+        <SearchForm />
+        <Select />
+      </div>
       <ul>
         {countries.map((country, index) => (
           <li key={index}>
