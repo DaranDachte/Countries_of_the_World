@@ -23,8 +23,9 @@ const Card: React.FunctionComponent<Props> = ({
     <figure className={style.card}>
       <img src={flagUrl} alt={name} />
       <figcaption>
+        <p>{name}</p>
         <p>Capital:{capital}</p>
-        <p>Population: {population}</p>
+        <p>Population: {population.toLocaleString()}</p>
         <ButtonComponent title="Learn more" onClick={onClick} />
       </figcaption>
     </figure>

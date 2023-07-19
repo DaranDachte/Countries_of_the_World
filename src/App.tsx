@@ -2,13 +2,18 @@ import { useState, useEffect, useMemo } from "react";
 import { fetcher } from "./Helpers/fetcher";
 import { Country } from "./Types";
 
-import "./App.css";
+import style from "./App.module.scss";
 import Card from "./Components/Card/Card";
+import Toggler from "./Components/Toggler/Toggler";
+import SearchForm from "./Components/SearchForm/SearchForm";
+import Select from "./Components/Select/Select";
+import { SelectOption } from "./Components/Select/Select";
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [activeCountry, setActiveCountry] = useState("");
   const [error, setError] = useState("");
+  const [regionFilter, setRegionFilter] = useState("");
 
   /**
    * Здесь  с помощью ассинхронной функции мы делаем запрос, чтобы получить массив стран.
@@ -39,6 +44,19 @@ function App() {
       .filter((item, idx, arr) => arr.indexOf(item) === idx);
   }, [countries]);
 
+  /** 
+   *мы  создали массив объектов для последующей передачи в компонент Select. С помощью метода map
+    мы перебрали регионы и на основании каждого региона создали объект выпадающего списка с текстом и значением.  
+    */
+  const regionOptions: SelectOption[] = useMemo(() => {
+    return regions.map((region) => {
+      return {
+        text: region,
+        value: region,
+      };
+    });
+  }, [regions]);
+
   // Здесь если массив стран пуст (ничего не загружено), то мы вызываем функцию getData()
   useEffect(() => {
     if (!countries.length) getData();
@@ -46,10 +64,27 @@ function App() {
   console.clear();
   console.log(regions);
 
+  const filteredCountries = useMemo(() => {
+    if (!regionFilter.length) return countries;
+    return countries.filter((country) => country.region === regionFilter);
+  }, [regionFilter]);
+
   return (
     <>
+      <div className={style.header}>
+        <div className={style.name}>
+          <h1>Countries of the world</h1>
+          <p>Interactive Reference Guide</p>
+        </div>
+        <Toggler />
+        <SearchForm />
+        <Select
+          options={regionOptions}
+          onChange={(value) => setRegionFilter(value)}
+        />
+      </div>
       <ul>
-        {countries.map((country, index) => (
+        {filteredCountries.map((country, index) => (
           <li key={index}>
             <Card
               flagUrl={country.flags.svg}
