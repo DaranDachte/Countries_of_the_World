@@ -4,12 +4,10 @@ import { ReactComponent as IconSearch } from "../../assets/img/IconSearch.svg";
 
 const SearchForm = () => {
   return (
-    <div className={style.searchForm}>
-      <label htmlFor="countrySearch">
-        <IconSearch />
-      </label>
+    <label className={style.searchForm}>
+      <IconSearch />
       <input className={style.input} placeholder="Search"></input>
-    </div>
+    </label>
   );
 };
 
