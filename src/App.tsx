@@ -14,6 +14,7 @@ function App() {
   const [activeCountry, setActiveCountry] = useState("");
   const [error, setError] = useState("");
   const [regionFilter, setRegionFilter] = useState("");
+  const [countryFilter, setCountryFilter] = useState("");
 
   /**
    * Здесь  с помощью ассинхронной функции мы делаем запрос, чтобы получить массив стран.
@@ -65,9 +66,23 @@ function App() {
   console.log(regions);
 
   const filteredCountries = useMemo(() => {
-    if (!regionFilter.length) return countries;
-    return countries.filter((country) => country.region === regionFilter);
-  }, [regionFilter]);
+    if (!regionFilter.length && !countryFilter.length) return countries;
+    if (regionFilter.length && !countryFilter.length)
+      return countries.filter((country) => country.region === regionFilter);
+    if (!regionFilter.length && countryFilter.length)
+      return countries.filter((country) =>
+        country.name.official
+          .toLowerCase()
+          .includes(countryFilter.toLowerCase())
+      );
+    return countries.filter(
+      (country) =>
+        country.region === regionFilter &&
+        country.name.official
+          .toLowerCase()
+          .includes(countryFilter.toLowerCase())
+    );
+  }, [regionFilter, countryFilter]);
 
   return (
     <>
@@ -77,12 +92,16 @@ function App() {
           <p>Interactive Reference Guide</p>
         </div>
         <Toggler />
-        <SearchForm />
+        <SearchForm
+          onInput={(value) => setCountryFilter(value)}
+          value={countryFilter}
+        />
         <Select
           options={regionOptions}
           onChange={(value) => setRegionFilter(value)}
         />
       </div>
+      {!filteredCountries.length && <p>Sorry, no matches 🙁</p>}
       <ul>
         {filteredCountries.map((country, index) => (
           <li key={index}>
