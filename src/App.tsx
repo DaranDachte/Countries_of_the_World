@@ -15,6 +15,7 @@ function App() {
   const [error, setError] = useState("");
   const [regionFilter, setRegionFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
+  const [checker, setChecker] = useState(false);
 
   /**
    * Здесь  с помощью ассинхронной функции мы делаем запрос, чтобы получить массив стран.
@@ -91,7 +92,11 @@ function App() {
           <h1>Countries of the world</h1>
           <p>Interactive Reference Guide</p>
         </div>
-        <Toggler />
+        <Toggler
+          text={checker ? "Dark" : "Light"}
+          isChecked={checker}
+          onChange={setChecker}
+        />
         <SearchForm
           onInput={(value) => setCountryFilter(value)}
           value={countryFilter}
