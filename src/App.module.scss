@@ -2,9 +2,20 @@
 
 * {
   font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ededed;
+}
+
+.wrapper {
+  width: 1106px;
+  margin: 0 auto;
 }
 
 .header {
+  width: 100%;
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
@@ -12,4 +23,14 @@
 h1,
 p {
   margin: 0;
+}
+
+.countriesList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style-type: none;
+  width: 100%;
+  padding: 0;
+  gap: 32px;
+  margin: 32px 0;
 }

@@ -1,7 +1,6 @@
 .searchForm {
   display: inline-flex;
-  height: 50px;
-  padding-right: 0px;
+  padding: 1rem;
   align-items: center;
   flex-shrink: 0;
   border-radius: 5px;
@@ -12,10 +11,12 @@
 
 .input {
   color: #737373;
-  font-family: Montserrat;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 28px; /* 200% */
   letter-spacing: 0.2px;
+  margin-left: 1rem;
+  width: calc(100% - 32px);
+  border: none;
+  outline: none;
+  background: transparent;
 }
