@@ -16,6 +16,7 @@ function App() {
   const [regionFilter, setRegionFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
   const [checker, setChecker] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   /**
    * Здесь  с помощью ассинхронной функции мы делаем запрос, чтобы получить массив стран.
@@ -23,11 +24,13 @@ function App() {
    *
    */
   const getData = async () => {
+    if (!isLoading) setIsLoading(true);
     try {
       const data = await fetcher<Country[]>(
         "https://restcountries.com/v3.1/all"
       );
       setCountries(data);
+      setIsLoading(false);
       setError("");
     } catch (err) {
       setError("Something goes wrong! 🙁");
@@ -51,12 +54,16 @@ function App() {
     мы перебрали регионы и на основании каждого региона создали объект выпадающего списка с текстом и значением.  
     */
   const regionOptions: SelectOption[] = useMemo(() => {
-    return regions.map((region) => {
-      return {
-        text: region,
-        value: region,
-      };
-    });
+    const base: SelectOption = { text: "All", value: "" };
+    return [
+      base,
+      ...regions.map((region) => {
+        return {
+          text: region,
+          value: region,
+        };
+      }),
+    ];
   }, [regions]);
 
   // Здесь если массив стран пуст (ничего не загружено), то мы вызываем функцию getData()
@@ -86,7 +93,7 @@ function App() {
   }, [regionFilter, countryFilter]);
 
   return (
-    <>
+    <div className={style.wrapper}>
       <div className={style.header}>
         <div className={style.name}>
           <h1>Countries of the world</h1>
@@ -106,8 +113,9 @@ function App() {
           onChange={(value) => setRegionFilter(value)}
         />
       </div>
-      {!filteredCountries.length && <p>Sorry, no matches 🙁</p>}
-      <ul>
+      {!isLoading && !filteredCountries.length && <p>Sorry, no matches 🙁</p>}
+      {isLoading && <p>Waiting Loading, Relax 🙁</p>}
+      <ul className={style.countriesList}>
         {filteredCountries.map((country, index) => (
           <li key={index}>
             <Card
@@ -120,7 +128,7 @@ function App() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

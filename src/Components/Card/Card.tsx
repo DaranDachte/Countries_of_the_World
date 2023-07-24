@@ -21,7 +21,9 @@ const Card: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <figure className={style.card}>
-      <img src={flagUrl} alt={name} />
+      <div className={style.imgWrapper}>
+        <img src={flagUrl} alt={name} />
+      </div>
       <figcaption>
         <p>{name}</p>
         <p>Capital:{capital}</p>
