@@ -7,16 +7,18 @@ import Card from "./Components/Card/Card";
 import Toggler from "./Components/Toggler/Toggler";
 import SearchForm from "./Components/SearchForm/SearchForm";
 import Select from "./Components/Select/Select";
+import LearnMore from "./Components/LearnMore/LearnMore";
 import { SelectOption } from "./Components/Select/Select";
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [activeCountry, setActiveCountry] = useState("");
+  const [activeCountry, setActiveCountry] = useState<Country | null>(null);
   const [error, setError] = useState("");
   const [regionFilter, setRegionFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
   const [checker, setChecker] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [openLearnMore, setOpenLearnMore] = useState(false);
 
   /**
    * Здесь  с помощью ассинхронной функции мы делаем запрос, чтобы получить массив стран.
@@ -123,11 +125,17 @@ function App() {
               name={country.name.official}
               capital={""}
               population={country.population}
-              onClick={() => setActiveCountry("")}
+              onClick={() => setActiveCountry(country)}
             />
           </li>
         ))}
       </ul>
+      {activeCountry && (
+        <LearnMore
+          country={activeCountry}
+          onClose={() => setActiveCountry(null)}
+        />
+      )}
     </div>
   );
 }
