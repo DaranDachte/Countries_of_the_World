@@ -1,0 +1,53 @@
+.learnMoreWrapper {
+  display: flex;
+  justify-content: flex-end;
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  @keyframes portal {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes portalOut {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+  & aside {
+    background-color: #fafafa;
+    width: 30%;
+    height: 100%;
+    padding: 43px 38px;
+  }
+  .animationIn {
+    animation: portal 1s linear;
+  }
+  .animationOut {
+    animation: portalOut 1s linear;
+  }
+  .imgWrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .inform {
+    display: grid;
+    gap: 8px;
+  }
+}
