@@ -9,10 +9,11 @@ import SearchForm from "./Components/SearchForm/SearchForm";
 import Select from "./Components/Select/Select";
 import LearnMore from "./Components/LearnMore/LearnMore";
 import { SelectOption } from "./Components/Select/Select";
+import { CountryContextProvider } from "./Context/CountryContext";
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [activeCountry, setActiveCountry] = useState<Country | null>(null);
+
   const [error, setError] = useState("");
   const [regionFilter, setRegionFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
@@ -95,48 +96,49 @@ function App() {
   }, [regionFilter, countryFilter]);
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.header}>
-        <div className={style.name}>
-          <h1>Countries of the world</h1>
-          <p>Interactive Reference Guide</p>
+    <CountryContextProvider>
+      <div className={style.wrapper}>
+        <div className={style.header}>
+          <div className={style.name}>
+            <h1>Countries of the world</h1>
+            <p>Interactive Reference Guide</p>
+          </div>
+          <Toggler
+            text={checker ? "Dark" : "Light"}
+            isChecked={checker}
+            onChange={setChecker}
+          />
+          <SearchForm
+            onInput={(value) => setCountryFilter(value)}
+            value={countryFilter}
+          />
+          <Select
+            options={regionOptions}
+            onChange={(value) => setRegionFilter(value)}
+          />
         </div>
-        <Toggler
-          text={checker ? "Dark" : "Light"}
-          isChecked={checker}
-          onChange={setChecker}
-        />
-        <SearchForm
-          onInput={(value) => setCountryFilter(value)}
-          value={countryFilter}
-        />
-        <Select
-          options={regionOptions}
-          onChange={(value) => setRegionFilter(value)}
-        />
+        {!isLoading && !filteredCountries.length && <p>Sorry, no matches 🙁</p>}
+        {isLoading && <p>Waiting Loading, Relax 🙁</p>}
+        <ul className={style.countriesList}>
+          {filteredCountries.map((country, index) => (
+            <li key={index}>
+              <Card
+                flagUrl={country.flags.svg}
+                name={country.name.official}
+                capital={""}
+                population={country.population}
+              />
+            </li>
+          ))}
+        </ul>
+        {activeCountry && (
+          <LearnMore
+            country={activeCountry}
+            onClose={() => setActiveCountry(null)}
+          />
+        )}
       </div>
-      {!isLoading && !filteredCountries.length && <p>Sorry, no matches 🙁</p>}
-      {isLoading && <p>Waiting Loading, Relax 🙁</p>}
-      <ul className={style.countriesList}>
-        {filteredCountries.map((country, index) => (
-          <li key={index}>
-            <Card
-              flagUrl={country.flags.svg}
-              name={country.name.official}
-              capital={""}
-              population={country.population}
-              onClick={() => setActiveCountry(country)}
-            />
-          </li>
-        ))}
-      </ul>
-      {activeCountry && (
-        <LearnMore
-          country={activeCountry}
-          onClose={() => setActiveCountry(null)}
-        />
-      )}
-    </div>
+    </CountryContextProvider>
   );
 }
 
