@@ -9,22 +9,40 @@ import SearchForm from "./Components/SearchForm/SearchForm";
 import Select from "./Components/Select/Select";
 import LearnMore from "./Components/LearnMore/LearnMore";
 import { SelectOption } from "./Components/Select/Select";
+import { RootState } from "./store";
+import { useDispatch, useSelector } from "react-redux";
+//import { CountryContextProvider } from "./Context/CountryContext";
 
-function App() {
+export const App = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [activeCountry, setActiveCountry] = useState<Country | null>(null);
   const [error, setError] = useState("");
-  const [regionFilter, setRegionFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
   const [checker, setChecker] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [openLearnMore, setOpenLearnMore] = useState(false);
 
-  /**
+  //можем получать сюда значение из стора
+  const { option } = useSelector((state: RootState) => state.activeOption);
+  const regionFilter = option;
+
+  console.log(regionFilter);
+
+  const dispatch = useDispatch();
+
+  //   const [regionFilter, setRegionFilter] = useState("");
+
+  const setRegionFilter = (value: string) => {
+    console.log(value);
+    dispatch({ type: "CHANGE_OPTION", payload: value });
+  };
+
+  /*
    * Здесь  с помощью ассинхронной функции мы делаем запрос, чтобы получить массив стран.
    *  Обращение к Апи идет через функцию fetcher (описание функции в файле fetcher).
    *
    */
+
   const getData = async () => {
     if (!isLoading) setIsLoading(true);
     try {
@@ -49,12 +67,12 @@ function App() {
         return country.region;
       })
       .filter((item, idx, arr) => arr.indexOf(item) === idx);
-  }, [countries]);
+  }, [countries, regionFilter]);
 
-  /** 
-   *мы  создали массив объектов для последующей передачи в компонент Select. С помощью метода map
-    мы перебрали регионы и на основании каждого региона создали объект выпадающего списка с текстом и значением.  
-    */
+  /*мы  создали массив объектов для последующей передачи в компонент Select. С помощью метода map
+  мы перебрали регионы и на основании каждого региона создали объект выпадающего списка с текстом и значением.  
+  */
+
   const regionOptions: SelectOption[] = useMemo(() => {
     const base: SelectOption = { text: "All", value: "" };
     return [
@@ -73,18 +91,18 @@ function App() {
     if (!countries.length) getData();
   });
   console.clear();
-  console.log(regions);
 
-  const filteredCountries = useMemo(() => {
-    if (!regionFilter.length && !countryFilter.length) return countries;
-    if (regionFilter.length && !countryFilter.length)
+  const filteredCountries = () => {
+    if (!regionFilter && !countryFilter.length) return countries;
+    if (regionFilter && !countryFilter.length)
       return countries.filter((country) => country.region === regionFilter);
-    if (!regionFilter.length && countryFilter.length)
+    if (!regionFilter && countryFilter.length)
       return countries.filter((country) =>
         country.name.official
           .toLowerCase()
           .includes(countryFilter.toLowerCase())
       );
+
     return countries.filter(
       (country) =>
         country.region === regionFilter &&
@@ -92,8 +110,7 @@ function App() {
           .toLowerCase()
           .includes(countryFilter.toLowerCase())
     );
-  }, [regionFilter, countryFilter]);
-
+  };
   return (
     <div className={style.wrapper}>
       <div className={style.header}>
@@ -118,7 +135,7 @@ function App() {
       {!isLoading && !filteredCountries.length && <p>Sorry, no matches 🙁</p>}
       {isLoading && <p>Waiting Loading, Relax 🙁</p>}
       <ul className={style.countriesList}>
-        {filteredCountries.map((country, index) => (
+        {filteredCountries().map((country, index) => (
           <li key={index}>
             <Card
               flagUrl={country.flags.svg}
@@ -138,6 +155,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;
