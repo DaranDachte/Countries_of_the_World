@@ -27,7 +27,9 @@ const LearnMore: React.FunctionComponent<Props> = ({ country, onClose }) => {
       <aside className={asideClassName}>
         <div className={style.imgWrapper}>
           <img src={country.flags.svg} alt={country.flags.alt} />
-          <ButtonComponent onClick={closeHandler} title={"Close"} />
+          <div className={style.closeButton}>
+            <ButtonComponent onClick={closeHandler} title={"Close"} />
+          </div>
         </div>
         <h2>{country.name.common}</h2>
         <div className={style.inform}>

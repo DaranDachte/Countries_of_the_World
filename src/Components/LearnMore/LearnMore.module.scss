@@ -26,6 +26,7 @@
     }
   }
   & aside {
+    position: relative;
     background-color: #fafafa;
     width: 30%;
     height: 100%;
@@ -50,4 +51,12 @@
     display: grid;
     gap: 8px;
   }
+}
+
+.closeButton {
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 45px;
+  left: 27.5rem;
 }

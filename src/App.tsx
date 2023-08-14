@@ -20,7 +20,7 @@ export const App = () => {
   const [countryFilter, setCountryFilter] = useState("");
   const [checker, setChecker] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [openLearnMore, setOpenLearnMore] = useState(false);
+  // const [openLearnMore, setOpenLearnMore] = useState(false);
 
   //можем получать сюда значение из стора
   const { option } = useSelector((state: RootState) => state.activeOption);
@@ -51,8 +51,8 @@ export const App = () => {
       );
       setCountries(data);
       setIsLoading(false);
-      setError("");
-    } catch (err) {
+      error;
+    } catch (error) {
       setError("Something goes wrong! 🙁");
       setCountries([]);
     } finally {

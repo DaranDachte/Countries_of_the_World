@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./style.module.scss";
 
-import { Country } from "../../Types";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 
 type Props = {
