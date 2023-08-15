@@ -1,4 +1,4 @@
-# Countries_of_the_World
+# Countries of the World
 In this application, I decided to improve my knowledge of TypeScript and Redux. Styles are made using the SASS preprocessor. The design was taken from Figma.com
 Follow this link to see how it works.
 
