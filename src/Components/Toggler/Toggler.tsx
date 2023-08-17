@@ -11,8 +11,13 @@ const Toggler: React.FunctionComponent<Props> = ({
   isChecked,
   onChange,
 }) => {
+  const handlerChangeTheme = () => {
+    onChange(!isChecked);
+    document.body.setAttribute("them", isChecked ? "Light" : "Dark");
+  };
+
   return (
-    <div className={style.toggler} onClick={() => onChange(!isChecked)}>
+    <div className={style.toggler} onClick={handlerChangeTheme}>
       <div
         className={`${style.togglerSwitch} ${
           isChecked ? style.togglerSwitchRight : style.togglerSwitchLeft

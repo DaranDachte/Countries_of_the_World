@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./style.module.scss";
-import { ReactComponent as Vector } from "../../assets/img/Vector.svg";
 
 export type SelectOption = {
   value: string;
@@ -25,7 +24,6 @@ const Select: React.FunctionComponent<Props> = ({ options, onChange }) => {
           <option value={option.value}>{option.text}</option>
         ))}
       </select>
-      <Vector />
     </div>
   );
 };

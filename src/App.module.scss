@@ -5,8 +5,35 @@
   box-sizing: border-box;
 }
 
+html {
+  --light-color: #ededed;
+  --dark-color: #202d35;
+  --font-light-color: #0e0e0e;
+  --font-dark-color: #ededed;
+  --card-background-light-color: #fff;
+  --card-background-dark-color: #2b3742;
+  --learnmore-background-light-color: #fafafa;
+  --learnmore-background-dark-color: #2b3742;
+}
+
+body[them="Light"] {
+  --common-color: var(--light-color);
+  //имя переменной
+  --font-color: var(--font-light-color);
+  --card-background-color: var(--card-background-light-color);
+  --learnmore-background-color: var(--learnmore-background-light-color);
+}
+
+body[them="Dark"] {
+  --common-color: var(--dark-color);
+  --font-color: var(--font-dark-color);
+  --card-background-color: var(--card-background-dark-color);
+  --learnmore-background-color: var(--learnmore-background-dark-color);
+}
+
 body {
-  background-color: #ededed;
+  background-color: var(--common-color);
+  color: var(--font-color);
 }
 
 .wrapper {
