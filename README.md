@@ -1,5 +1,5 @@
 # Countries of the World
-In this application, I decided to improve my knowledge of TypeScript and Redux. Styles are made using the SASS preprocessor. The design was taken from Figma.com
+In this application, I decided to improve my knowledge of TypeScript, Context API and Redux. Styles are made using the SASS preprocessor. 
 Follow this link to see how it works.
 
   <a href="https://countries-of-the-world-fr5x.vercel.app" target="_blank">Countries of the World</a>  
