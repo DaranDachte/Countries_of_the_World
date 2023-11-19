@@ -20,8 +20,10 @@ const Select: React.FunctionComponent<Props> = ({ options, onChange }) => {
   return (
     <div className={style.select}>
       <select onChange={changeHandler}>
-        {options.map((option) => (
-          <option value={option.value}>{option.text}</option>
+        {options.map((option, i) => (
+          <option key={i} value={option.value}>
+            {option.text}
+          </option>
         ))}
       </select>
     </div>

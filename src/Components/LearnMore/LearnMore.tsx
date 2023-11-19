@@ -33,7 +33,7 @@ const LearnMore: React.FunctionComponent<Props> = ({ country, onClose }) => {
         </div>
         <h2>{country.name.common}</h2>
         <div className={style.inform}>
-          <p>Capital:{country.capital}</p>
+          <p>Capital: {country.capital}</p>
           <p>Population: {country.population.toLocaleString()}</p>
         </div>
       </aside>

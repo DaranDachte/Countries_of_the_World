@@ -3,6 +3,8 @@
 * {
   font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -16,15 +18,15 @@ html {
   --learnmore-background-dark-color: #2b3742;
 }
 
-body[them="Light"] {
+body[theme="Light"] {
+  //имя переменной :свойство
   --common-color: var(--light-color);
-  //имя переменной
   --font-color: var(--font-light-color);
   --card-background-color: var(--card-background-light-color);
   --learnmore-background-color: var(--learnmore-background-light-color);
 }
 
-body[them="Dark"] {
+body[theme="Dark"] {
   --common-color: var(--dark-color);
   --font-color: var(--font-dark-color);
   --card-background-color: var(--card-background-dark-color);

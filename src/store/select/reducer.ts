@@ -1,7 +1,7 @@
 import { optionCases, changeOption } from "./types";
 
 const defaultState = {
-  option: "Asia",
+  option: "All",
 };
 
 export const optionsReducer = (state = defaultState, action: changeOption) => {

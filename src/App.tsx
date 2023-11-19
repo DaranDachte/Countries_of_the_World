@@ -24,16 +24,13 @@ export const App = () => {
 
   //можем получать сюда значение из стора
   const { option } = useSelector((state: RootState) => state.activeOption);
-  const regionFilter = option;
-
-  console.log(regionFilter);
+  const regionFilter = option === "All" ? "" : option;
 
   const dispatch = useDispatch();
 
   //   const [regionFilter, setRegionFilter] = useState("");
 
   const setRegionFilter = (value: string) => {
-    console.log(value);
     dispatch({ type: "CHANGE_OPTION", payload: value });
   };
 
@@ -55,8 +52,6 @@ export const App = () => {
     } catch (error) {
       setError("Something goes wrong! 🙁");
       setCountries([]);
-    } finally {
-      console.log("What happened?");
     }
   };
 
@@ -89,19 +84,23 @@ export const App = () => {
   // Здесь если массив стран пуст (ничего не загружено), то мы вызываем функцию getData()
   useEffect(() => {
     if (!countries.length) getData();
-  });
-  console.clear();
+    document.body.setAttribute("theme", checker ? "Dark" : "Light");
+  }, [checker]);
 
   const filteredCountries = () => {
     if (!regionFilter && !countryFilter.length) return countries;
+    if (regionFilter && regionFilter === "All" && !countryFilter.length)
+      return countries;
+
     if (regionFilter && !countryFilter.length)
       return countries.filter((country) => country.region === regionFilter);
-    if (!regionFilter && countryFilter.length)
+    if (!regionFilter && countryFilter.length) {
       return countries.filter((country) =>
         country.name.official
           .toLowerCase()
           .includes(countryFilter.toLowerCase())
       );
+    }
 
     return countries.filter(
       (country) =>
@@ -111,6 +110,7 @@ export const App = () => {
           .includes(countryFilter.toLowerCase())
     );
   };
+
   return (
     <div className={style.wrapper}>
       <div className={style.header}>
@@ -132,7 +132,7 @@ export const App = () => {
           onChange={(value) => setRegionFilter(value)}
         />
       </div>
-      {!isLoading && !filteredCountries.length && <p>Sorry, no matches 🙁</p>}
+      {filteredCountries().length === 0 && <p>Sorry, no matches 🙁</p>}
       {isLoading && <p>Waiting Loading, Relax 🙁</p>}
       <ul className={style.countriesList}>
         {filteredCountries().map((country, index) => (
@@ -140,7 +140,7 @@ export const App = () => {
             <Card
               flagUrl={country.flags.svg}
               name={country.name.official}
-              capital={""}
+              capital={country.capital}
               population={country.population}
               onClick={() => setActiveCountry(country)}
             />
