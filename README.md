@@ -3,4 +3,8 @@ In this application, I decided to improve my knowledge of TypeScript and Redux. 
 Follow this link to see how it works.
 
   <a href="https://countries-of-the-world-fr5x.vercel.app" target="_blank">Countries of the World</a>  
-![logoColor](https://user-images.githubusercontent.com/96144068/234046629-d073245e-5596-4b09-8334-cf94d2beb69a.jpg)
+![Preview](https://github.com/DaranDachte/Countries_of_the_World/assets/96144068/45a06a07-f0e9-4b39-8ddd-cc8f296f4a0b)
+![NightTheme](https://github.com/DaranDachte/Countries_of_the_World/assets/96144068/dcc38a7e-5b31-4332-895c-03f33f6b698e)
+![LearnMore](https://github.com/DaranDachte/Countries_of_the_World/assets/96144068/7e749f28-982c-48ff-bfdb-8befd177a29f)
+![LearnMoreNight](https://github.com/DaranDachte/Countries_of_the_World/assets/96144068/a4963081-dacb-4af4-9598-0a25f0d79045)
+![NoMatches](https://github.com/DaranDachte/Countries_of_the_World/assets/96144068/79a60056-f8f5-42fa-bd0c-016f61724c6d)
